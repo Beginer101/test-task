@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Segments</title>
+    <style>
+        canvas {
+            background-color: #f0f0f0;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="circleCanvas" width="500" height="500"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+const canvas = document.getElementById('circleCanvas');
+const ctx = canvas.getContext('2d');
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
+const radius = 200;
+
+function drawSegment(ctx, startAngle, endAngle, color) {
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+}
+
+function generateRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function drawCircleSegments(segmentCount) {
+    const angleStep = (2 * Math.PI) / segmentCount;
+
+    for (let i = 0; i < segmentCount; i++) {
+        const startAngle = i * angleStep;
+        const endAngle = (i + 1) * angleStep;
+        const color = generateRandomColor();
+
+        drawSegment(ctx, startAngle, endAngle, color);
+    }
+}
+
+// Задаємо кількість сегментів
+drawCircleSegments(8); // Наприклад, 8 сегментів
+
+
+
